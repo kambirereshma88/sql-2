@@ -1,0 +1,414 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use employe;
+Database changed
+mysql> create table table1(
+    -> id int primary key,
+    -> name varchar(20) not null,
+    -> age int not null
+    -> );
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> desc table1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into table1 values(1,'a',20);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from table1;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
++----+------+-----+
+1 row in set (0.00 sec)
+
+mysql> insert into table1 values(2,'b',25)
+    -> , (3,'c',24),(4,'d',20),(5,'e',28),(6,'f',27);
+Query OK, 5 rows affected (0.20 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from table1;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  5 | e    |  28 |
+|  6 | f    |  27 |
++----+------+-----+
+6 rows in set (0.00 sec)
+
+mysql> create table table2(
+    -> id int primary key,
+    -> name varchar(20) not null,
+    -> age int not null
+    -> );
+Query OK, 0 rows affected (1.37 sec)
+
+mysql> desc table2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into table2 values(
+    -> 1,'a',25),(5,'g',24),(6,'h',35),(6,'d',25),(7,'i',24),(7,'j',30);
+ERROR 1062 (23000): Duplicate entry '6' for key 'table2.PRIMARY'
+mysql> 1,'a',25),(5,'g',24),(6,'h',35),(6,'d',25),(7,'i',24),(8,'j',30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,'a',25),(5,'g',24),(6,'h',35),(6,'d',25),(7,'i',24),(8,'j',30)' at line 1
+mysql> insert into table2 values(
+    -> 1,'a',25),(5,'g',24),(6,'h',25),(7,'i',24),(8,'j',25),(9,'k',24);
+Query OK, 6 rows affected (0.22 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from table2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  25 |
+|  5 | g    |  24 |
+|  6 | h    |  25 |
+|  7 | i    |  24 |
+|  8 | j    |  25 |
+|  9 | k    |  24 |
++----+------+-----+
+6 rows in set (0.00 sec)
+
+mysql> select * from table1 union select * from table2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  5 | e    |  28 |
+|  6 | f    |  27 |
+|  1 | a    |  25 |
+|  5 | g    |  24 |
+|  6 | h    |  25 |
+|  7 | i    |  24 |
+|  8 | j    |  25 |
+|  9 | k    |  24 |
++----+------+-----+
+12 rows in set (0.07 sec)
+
+mysql> select * from table1 union all select * from table2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  5 | e    |  28 |
+|  6 | f    |  27 |
+|  1 | a    |  25 |
+|  5 | g    |  24 |
+|  6 | h    |  25 |
+|  7 | i    |  24 |
+|  8 | j    |  25 |
+|  9 | k    |  24 |
++----+------+-----+
+12 rows in set (0.00 sec)
+
+mysql> select * from table1 except select * from table2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  5 | e    |  28 |
+|  6 | f    |  27 |
++----+------+-----+
+6 rows in set (0.00 sec)
+
+mysql> select * from table1 intersect select * from table2;
+Empty set (0.00 sec)
+
+mysql> select * from tablel;
+ERROR 1146 (42S02): Table 'employe.tablel' doesn't exist
+mysql> select * from table1;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  5 | e    |  28 |
+|  6 | f    |  27 |
++----+------+-----+
+6 rows in set (0.00 sec)
+
+mysql> select * from table2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  25 |
+|  5 | g    |  24 |
+|  6 | h    |  25 |
+|  7 | i    |  24 |
+|  8 | j    |  25 |
+|  9 | k    |  24 |
++----+------+-----+
+6 rows in set (0.00 sec)
+
+mysql> select id,name from table1 union select id,name from table2;
++----+------+
+| id | name |
++----+------+
+|  1 | a    |
+|  2 | b    |
+|  3 | c    |
+|  4 | d    |
+|  5 | e    |
+|  6 | f    |
+|  5 | g    |
+|  6 | h    |
+|  7 | i    |
+|  8 | j    |
+|  9 | k    |
++----+------+
+11 rows in set (0.00 sec)
+
+mysql> select id,name from table1 union all select id,name from table2;
++----+------+
+| id | name |
++----+------+
+|  1 | a    |
+|  2 | b    |
+|  3 | c    |
+|  4 | d    |
+|  5 | e    |
+|  6 | f    |
+|  1 | a    |
+|  5 | g    |
+|  6 | h    |
+|  7 | i    |
+|  8 | j    |
+|  9 | k    |
++----+------+
+12 rows in set (0.00 sec)
+
+mysql> select id,name from table1 intersect select id,name from table2;
++----+------+
+| id | name |
++----+------+
+|  1 | a    |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> select * from table1 order by age desc;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  5 | e    |  28 |
+|  6 | f    |  27 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  1 | a    |  20 |
+|  4 | d    |  20 |
++----+------+-----+
+6 rows in set (0.00 sec)
+
+mysql> select * from table1 order by age limit 2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  4 | d    |  20 |
++----+------+-----+
+2 rows in set (0.00 sec)
+
+mysql> select * from table1 order by age limit 3;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  4 | d    |  20 |
+|  3 | c    |  24 |
++----+------+-----+
+3 rows in set (0.00 sec)
+
+mysql> select * from table1 order by age desc limit 3;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  5 | e    |  28 |
+|  6 | f    |  27 |
+|  2 | b    |  25 |
++----+------+-----+
+3 rows in set (0.00 sec)
+
+mysql> select * from table1 order by age desc limit 2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  5 | e    |  28 |
+|  6 | f    |  27 |
++----+------+-----+
+2 rows in set (0.00 sec)
+
+mysql> select id+age as total_sal from table1;
++-----------+
+| total_sal |
++-----------+
+|        21 |
+|        27 |
+|        27 |
+|        24 |
+|        33 |
+|        33 |
++-----------+
+6 rows in set (0.04 sec)
+
+mysql> select age*12 from table1;
++--------+
+| age*12 |
++--------+
+|    240 |
+|    300 |
+|    288 |
+|    240 |
+|    336 |
+|    324 |
++--------+
+6 rows in set (0.03 sec)
+
+mysql> select age-id from table1;
++--------+
+| age-id |
++--------+
+|     19 |
+|     23 |
+|     21 |
+|     16 |
+|     23 |
+|     21 |
++--------+
+6 rows in set (0.03 sec)
+
+mysql> select age%12 from table1;
++--------+
+| age%12 |
++--------+
+|      8 |
+|      1 |
+|      0 |
+|      8 |
+|      4 |
+|      3 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from table1 where age!=28
+    -> ;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  20 |
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  6 | f    |  27 |
++----+------+-----+
+5 rows in set (0.00 sec)
+
+mysql> select * from table1 where id>2 && id<5;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  3 | c    |  24 |
+|  4 | d    |  20 |
++----+------+-----+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select * from table1 where id between 2 and 5;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  2 | b    |  25 |
+|  3 | c    |  24 |
+|  4 | d    |  20 |
+|  5 | e    |  28 |
++----+------+-----+
+4 rows in set (0.02 sec)
+
+mysql> select 22&2;
++------+
+| 22&2 |
++------+
+|    2 |
++------+
+1 row in set (0.03 sec)
+
+mysql> select 22/2;
++---------+
+| 22/2    |
++---------+
+| 11.0000 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select 22|2;
++------+
+| 22|2 |
++------+
+|   22 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select 22^2;
++------+
+| 22^2 |
++------+
+|   20 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select 22>>2;
++-------+
+| 22>>2 |
++-------+
+|     5 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select 10>>1;
++-------+
+| 10>>1 |
++-------+
+|     5 |
++-------+
+1 row in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,428 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use employe;
+Database changed
+mysql> select concate('my name is','something');
+ERROR 1305 (42000): FUNCTION employe.concate does not exist
+mysql> select concat('my name is ','something');
++-----------------------------------+
+| concat('my name is ','something') |
++-----------------------------------+
+| my name is something              |
++-----------------------------------+
+1 row in set (0.05 sec)
+
+mysql> select concat(depart,stud_name) from college;
++--------------------------+
+| concat(depart,stud_name) |
++--------------------------+
+| elecram                  |
+| elecsham                 |
+| eleckishan               |
+| elecgopi                 |
+| mechira                  |
+| mechishan                |
+| mechayush                |
+| itnetra                  |
+| itpooja                  |
+| itpriti                  |
++--------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select concat(depart,stud_name) from college where id=1;
++--------------------------+
+| concat(depart,stud_name) |
++--------------------------+
+| elecram                  |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(depart,stud_name) from college where id=2;
++--------------------------+
+| concat(depart,stud_name) |
++--------------------------+
+| elecsham                 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat('it','pooja') from college;
++----------------------+
+| concat('it','pooja') |
++----------------------+
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
+| itpooja              |
++----------------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from college;
++----+--------+-----------+------------+----------------+------------+
+| id | depart | stud_name | stud_marks | stud_paid_fees | attendance |
++----+--------+-----------+------------+----------------+------------+
+|  1 | elec   | ram       |         70 |          25000 |         60 |
+|  2 | elec   | sham      |         60 |          20000 |         50 |
+|  3 | elec   | kishan    |         65 |          25000 |         55 |
+|  4 | elec   | gopi      |         60 |          28000 |         55 |
+|  5 | mech   | ira       |         88 |          30000 |         90 |
+|  6 | mech   | ishan     |         99 |          25000 |         99 |
+|  7 | mech   | ayush     |         95 |          25000 |         95 |
+|  8 | it     | netra     |         99 |          30000 |         85 |
+|  9 | it     | pooja     |         60 |          20000 |         60 |
+| 10 | it     | priti     |         50 |          20000 |         50 |
++----+--------+-----------+------------+----------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select concat('it','pooja') from college where id=8;
++----------------------+
+| concat('it','pooja') |
++----------------------+
+| itpooja              |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select lower('my name is khan');
++--------------------------+
+| lower('my name is khan') |
++--------------------------+
+| my name is khan          |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select upper('my name is khan');
++--------------------------+
+| upper('my name is khan') |
++--------------------------+
+| MY NAME IS KHAN          |
++--------------------------+
+1 row in set (0.02 sec)
+
+mysql> select upper(depart)as depart,upper(stud_name)as stud_name from college;
++--------+-----------+
+| depart | stud_name |
++--------+-----------+
+| ELEC   | RAM       |
+| ELEC   | SHAM      |
+| ELEC   | KISHAN    |
+| ELEC   | GOPI      |
+| MECH   | IRA       |
+| MECH   | ISHAN     |
+| MECH   | AYUSH     |
+| IT     | NETRA     |
+| IT     | POOJA     |
+| IT     | PRITI     |
++--------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select lower(depart)as depart,lower(stud_name) from college;
++--------+------------------+
+| depart | lower(stud_name) |
++--------+------------------+
+| elec   | ram              |
+| elec   | sham             |
+| elec   | kishan           |
+| elec   | gopi             |
+| mech   | ira              |
+| mech   | ishan            |
+| mech   | ayush            |
+| it     | netra            |
+| it     | pooja            |
+| it     | priti            |
++--------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> select upper(depart)as DEPART,upper(stud_name)as STUD_NAME from college;
++--------+-----------+
+| DEPART | STUD_NAME |
++--------+-----------+
+| ELEC   | RAM       |
+| ELEC   | SHAM      |
+| ELEC   | KISHAN    |
+| ELEC   | GOPI      |
+| MECH   | IRA       |
+| MECH   | ISHAN     |
+| MECH   | AYUSH     |
+| IT     | NETRA     |
+| IT     | POOJA     |
+| IT     | PRITI     |
++--------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select substr('i am from goa',11,3);
++------------------------------+
+| substr('i am from goa',11,3) |
++------------------------------+
+| goa                          |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substr('i am from goa',11);
++----------------------------+
+| substr('i am from goa',11) |
++----------------------------+
+| goa                        |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substr('welcome to goa singham','singham','simbha');
++-----------------------------------------------------+
+| substr('welcome to goa singham','singham','simbha') |
++-----------------------------------------------------+
+|                                                     |
++-----------------------------------------------------+
+1 row in set, 4 warnings (0.03 sec)
+
+mysql> select replace('welcome to goa singham','singham','simbha');
++------------------------------------------------------+
+| replace('welcome to goa singham','singham','simbha') |
++------------------------------------------------------+
+| welcome to goa simbha                                |
++------------------------------------------------------+
+1 row in set (0.32 sec)
+
+mysql> select length(trim '    fhhgjhdfd hfhfhgjh    ');
+ERROR 1583 (42000): Incorrect parameters in the call to native function 'length'
+mysql> select length(trim '    fhhgjhdfd hfhfhgjh    '));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select length(trim( '    fhhgjhdfd hfhfhgjh    '));
++---------------------------------------------+
+| length(trim( '    fhhgjhdfd hfhfhgjh    ')) |
++---------------------------------------------+
+|                                          18 |
++---------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select length(trim('   hgghshdj   vvnghhjh'));
++----------------------------------------+
+| length(trim('   hgghshdj   vvnghhjh')) |
++----------------------------------------+
+|                                     19 |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select abs(-15)
+    -> ;
++----------+
+| abs(-15) |
++----------+
+|       15 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select abs(-20);
++----------+
+| abs(-20) |
++----------+
+|       20 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select abs(22);
++---------+
+| abs(22) |
++---------+
+|      22 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select ceil(15.7);
++------------+
+| ceil(15.7) |
++------------+
+|         16 |
++------------+
+1 row in set (0.18 sec)
+
+mysql> select ceil(17.2);
++------------+
+| ceil(17.2) |
++------------+
+|         18 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select round(15.5);
++-------------+
+| round(15.5) |
++-------------+
+|          16 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select round(15.2);
++-------------+
+| round(15.2) |
++-------------+
+|          15 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select truncate(10.000000,2);
++-----------------------+
+| truncate(10.000000,2) |
++-----------------------+
+|                 10.00 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select truncate(15.2222222,3);
++------------------------+
+| truncate(15.2222222,3) |
++------------------------+
+|                 15.222 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select mod(6,6);
++----------+
+| mod(6,6) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(5,5);
++----------+
+| mod(5,5) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(10,5)
+    -> ;
++-----------+
+| mod(10,5) |
++-----------+
+|         0 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(15,15);
++------------+
+| mod(15,15) |
++------------+
+|          0 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select pow(5,5);
++----------+
+| pow(5,5) |
++----------+
+|     3125 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select pow(10,2);
++-----------+
+| pow(10,2) |
++-----------+
+|       100 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select pow(14,2);
++-----------+
+| pow(14,2) |
++-----------+
+|       196 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select floor(40/2);
++-------------+
+| floor(40/2) |
++-------------+
+|          20 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(75/5);
++-------------+
+| floor(75/5) |
++-------------+
+|          15 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2024-02-22 |
++------------+
+1 row in set (0.04 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2024-02-22 16:42:10 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2024-02-22,'%d-%m-%y');
+    '>
+    '> ;
+    '> ,;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%m-%y');
+
+;
+,;
+'' at line 1
+mysql> select date_format('2024-02-22','%d-%m-%y');
++--------------------------------------+
+| date_format('2024-02-22','%d-%m-%y') |
++--------------------------------------+
+| 22-02-24                             |
++--------------------------------------+
+1 row in set (0.05 sec)
+
+mysql> select date_format('2024-02-22','%D-%M-%Y');
++--------------------------------------+
+| date_format('2024-02-22','%D-%M-%Y') |
++--------------------------------------+
+| 22nd-February-2024                   |
++--------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> select date_format('2024-02-22',%d-%m-%y');
+    '> ));
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d-%m-%y');
+));
+'' at line 1
+mysql> select date_format('2024-02-22','%d-%m-%y');
++--------------------------------------+
+| date_format('2024-02-22','%d-%m-%y') |
++--------------------------------------+
+| 22-02-24                             |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2024-02-22','%d-%b-%y');
++--------------------------------------+
+| date_format('2024-02-22','%d-%b-%y') |
++--------------------------------------+
+| 22-Feb-24                            |
++--------------------------------------+
+1 row in set (0.00 sec)

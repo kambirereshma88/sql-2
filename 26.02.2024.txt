@@ -1,0 +1,85 @@
+
+mysql> create table user(
+    -> uid int primary key not null,
+    -> uname varchar(20) not null,
+    -> uage int not null
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+
+mysql> create table product(
+    -> pid int primary key not null,
+    -> pname varchar(20) not null,
+    -> pprice float not null
+    -> );
+Query OK, 0 rows affected (1.60 sec)
+
+
+mysql> create table cart(
+    -> cid int primary key,
+    -> pid int,
+    -> uid int,
+    -> foreign key(pid) references product(pid),
+    -> foreign key (uid) references user(uid)
+    -> );
+Query OK, 0 rows affected (2.54 sec)
+
+mysql> desc cart;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| cid   | int  | NO   | PRI | NULL    |       |
+| pid   | int  | YES  | MUL | NULL    |       |
+| uid   | int  | YES  | MUL | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into product values(1,'dog',12000),(2,'bulldog',20000);
+Query OK, 2 rows affected (0.15 sec)
+
+
+
+mysql> create table user(
+    -> uid int primary key not null,
+    -> uname varchar(20) not null,
+    -> uage int not null
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+
+mysql> create table product(
+    -> pid int primary key not null,
+    -> pname varchar(20) not null,
+    -> pprice float not null
+    -> );
+Query OK, 0 rows affected (1.60 sec)
+
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pid int,
+
+)' at line 1
+mysql> create table cart(
+    -> cid int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> create table cart(
+    -> cid int primary key,
+    -> pid int,
+    -> uid int,
+    -> foreign key(pid) references product(pid),
+    -> foreign key (uid) references user(uid)
+    -> );
+Query OK, 0 rows affected (2.54 sec)
+
+mysql> desc cart;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| cid   | int  | NO   | PRI | NULL    |       |
+| pid   | int  | YES  | MUL | NULL    |       |
+| uid   | int  | YES  | MUL | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into product values(1,'dog',12000),(2,'bulldog',20000);
+Query OK, 2 rows affected (0.15 sec)
+Records: 2  Duplicates: 0  Warnings: 0

@@ -1,0 +1,272 @@
+   subquery 
+
+
+Microsoft Windows [Version 10.0.19045.4046]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\rahul>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.36 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use mysql;
+Database changed
+mysql> select * from employee;
++-----+---------+--------------+------+
+| eid | ename   | edesignation | mid  |
++-----+---------+--------------+------+
+|   1 | rahul   | dev          |    6 |
+|   2 | devsena | hr           |    5 |
+|   3 | diana   | dev          |    6 |
+|   4 | rohit   | dev          |    6 |
+|   5 | bigboss | ceo          |    0 |
+|   6 | stark   | manager      |    5 |
++-----+---------+--------------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from table1;
+ERROR 1146 (42S02): Table 'mysql.table1' doesn't exist
+mysql> use car;
+Database changed
+mysql> desc table1;
+ERROR 1146 (42S02): Table 'car.table1' doesn't exist
+mysql> select * from teacher;
+ERROR 1146 (42S02): Table 'car.teacher' doesn't exist
+mysql> create table tr(
+    -> id int primary key not null,
+    -> name varchar(30),
+    -> age int not null
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> desc tr;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into tr values(1,'priti',25);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into tr values(2,'priya',20);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into tr values(3,'priyal',30);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into tr values(4,'poja',35);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from tr;
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  1 | priti  |  25 |
+|  2 | priya  |  20 |
+|  3 | priyal |  30 |
+|  4 | poja   |  35 |
++----+--------+-----+
+4 rows in set (0.00 sec)
+
+mysql> update tr set age = age+1;
+Query OK, 4 rows affected (0.20 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from tr;
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  1 | priti  |  26 |
+|  2 | priya  |  21 |
+|  3 | priyal |  31 |
+|  4 | poja   |  36 |
++----+--------+-----+
+4 rows in set (0.00 sec)
+
+mysql> update tr set age = 45 where id = ( select id from tr2 where name='poja');
+ERROR 1146 (42S02): Table 'car.tr2' doesn't exist
+mysql> select distinct age from tr;
++-----+
+| age |
++-----+
+|  26 |
+|  21 |
+|  31 |
+|  36 |
++-----+
+4 rows in set (0.00 sec)
+
+mysql> create tr2(
+    -> id int primary key,
+    -> name varchar(20),
+    -> age int not null
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tr2(
+id int primary key,
+name varchar(20),
+age int not null
+)' at line 1
+mysql> create tr2(
+    -> id int primary key,
+    -> name varchar(20),
+    -> age int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tr2(
+id int primary key,
+name varchar(20),
+age int not null)' at line 1
+mysql> create tr2(
+    -> id int primary key not null,
+    -> name varchar(20),
+    -> age int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tr2(
+id int primary key not null,
+name varchar(20),
+age int not null)' at line 1
+mysql> create tr2(
+    -> id int primary key,
+    -> name varchar(20),
+    -> age int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tr2(
+id int primary key,
+name varchar(20),
+age int not null)' at line 1
+mysql> create tr2(
+    -> id int primary key,
+    -> name varchar(20),
+    -> age int not null
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tr2(
+id int primary key,
+name varchar(20),
+age int not null
+)' at line 1
+mysql> create tabke tr2(
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tabke tr2(' at line 1
+mysql> create table tr2(
+    -> id int primary key,
+    -> name varchar(20),
+    -> age int not null);
+Query OK, 0 rows affected (1.50 sec)
+
+mysql> desc tr2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into tr2 values(1,'a',25),(2,'b',30),(3,'c',35),(4,'d',30);
+Query OK, 4 rows affected (0.09 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr2;
++----+------+-----+
+| id | name | age |
++----+------+-----+
+|  1 | a    |  25 |
+|  2 | b    |  30 |
+|  3 | c    |  35 |
+|  4 | d    |  30 |
++----+------+-----+
+4 rows in set (0.00 sec)
+
+mysql> alter table tr2 add column gov_id int not null;
+Query OK, 0 rows affected (0.43 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr2;
++----+------+-----+--------+
+| id | name | age | gov_id |
++----+------+-----+--------+
+|  1 | a    |  25 |      0 |
+|  2 | b    |  30 |      0 |
+|  3 | c    |  35 |      0 |
+|  4 | d    |  30 |      0 |
++----+------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table tr2 modify column gov_id int not null;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr2;
++----+------+-----+--------+
+| id | name | age | gov_id |
++----+------+-----+--------+
+|  1 | a    |  25 |      0 |
+|  2 | b    |  30 |      0 |
+|  3 | c    |  35 |      0 |
+|  4 | d    |  30 |      0 |
++----+------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table tr2 add column gov_id int not null first;
+ERROR 1060 (42S21): Duplicate column name 'gov_id'
+mysql> alter table tr2 add column gov_id int unique not null first;
+ERROR 1060 (42S21): Duplicate column name 'gov_id'
+mysql> alter table tr2 add column gid int unique not null first;
+ERROR 1062 (23000): Duplicate entry '0' for key 'tr2.gid'
+mysql> alter table tr2 add column gid int not null first;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr2;
++-----+----+------+-----+--------+
+| gid | id | name | age | gov_id |
++-----+----+------+-----+--------+
+|   0 |  1 | a    |  25 |      0 |
+|   0 |  2 | b    |  30 |      0 |
+|   0 |  3 | c    |  35 |      0 |
+|   0 |  4 | d    |  30 |      0 |
++-----+----+------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table tr2 add column trname varchar(20) after name;
+Query OK, 0 rows affected (0.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr2;
++-----+----+------+--------+-----+--------+
+| gid | id | name | trname | age | gov_id |
++-----+----+------+--------+-----+--------+
+|   0 |  1 | a    | NULL   |  25 |      0 |
+|   0 |  2 | b    | NULL   |  30 |      0 |
+|   0 |  3 | c    | NULL   |  35 |      0 |
+|   0 |  4 | d    | NULL   |  30 |      0 |
++-----+----+------+--------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql>

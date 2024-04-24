@@ -1,0 +1,172 @@
+
+mysql> create table users(
+    -> uid int primary key not null,
+    -> uname varchar(20) not null,
+    -> uage int not null);
+Query OK, 0 rows affected (1.22 sec)
+
+mysql> desc users;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| uid   | int         | NO   | PRI | NULL    |       |
+| uname | varchar(20) | NO   |     | NULL    |       |
+| uage  | int         | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table prod(
+    -> pid int primary key not null,
+    -> pname varchar(20) not null,
+    -> pprice float not null);
+Query OK, 0 rows affected (0.58 sec)
+
+mysql> desc prod;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pid    | int         | NO   | PRI | NULL    |       |
+| pname  | varchar(20) | NO   |     | NULL    |       |
+| pprice | float       | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table carts(
+    -> cid int primary key not null,
+    -> pid int,
+    -> uid int,
+    -> foreign key(pid)references prod(pid),
+    -> foreign key(uid)references users(uid)
+    -> );
+Query OK, 0 rows affected (1.44 sec)
+
+mysql> decs carts;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decs carts' at line 1
+mysql> desc carts;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| cid   | int  | NO   | PRI | NULL    |       |
+| pid   | int  | YES  | MUL | NULL    |       |
+| uid   | int  | YES  | MUL | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into prod values(1,'dog',20000),(2,'bulldog',20000),(3,'tommy',12000);
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from carts;
+Empty set (0.00 sec)
+
+mysql> select * from prod;
++-----+---------+--------+
+| pid | pname   | pprice |
++-----+---------+--------+
+|   1 | dog     |  20000 |
+|   2 | bulldog |  20000 |
+|   3 | tommy   |  12000 |
++-----+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from prod inner join carts on prod.pid = carts.pid;
+Empty set (0.00 sec)
+
+mysql> insert into users values(1,'mr.stark',50),(2,'johny deff',45),(3,'salman khan',60);
+Query OK, 3 rows affected (0.17 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from users;
++-----+-------------+------+
+| uid | uname       | uage |
++-----+-------------+------+
+|   1 | mr.stark    |   50 |
+|   2 | johny deff  |   45 |
+|   3 | salman khan |   60 |
++-----+-------------+------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into carts values(1,2,3);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from carts;
++-----+------+------+
+| cid | pid  | uid  |
++-----+------+------+
+|   1 |    2 |    3 |
++-----+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from prod where pid in(select pid from carts);
++-----+---------+--------+
+| pid | pname   | pprice |
++-----+---------+--------+
+|   2 | bulldog |  20000 |
++-----+---------+--------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select * from users where uid in(select uid from carts);
++-----+-------------+------+
+| uid | uname       | uage |
++-----+-------------+------+
+|   3 | salman khan |   60 |
++-----+-------------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from prod;
++-----+---------+--------+
+| pid | pname   | pprice |
++-----+---------+--------+
+|   1 | dog     |  20000 |
+|   2 | bulldog |  20000 |
+|   3 | tommy   |  12000 |
++-----+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from users;
++-----+-------------+------+
+| uid | uname       | uage |
++-----+-------------+------+
+|   1 | mr.stark    |   50 |
+|   2 | johny deff  |   45 |
+|   3 | salman khan |   60 |
++-----+-------------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from carts;
++-----+------+------+
+| cid | pid  | uid  |
++-----+------+------+
+|   1 |    2 |    3 |
++-----+------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into prod values(4,'moti',25000),(5,'bruno',50000);
+Query OK, 2 rows affected (0.20 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from prod;
++-----+---------+--------+
+| pid | pname   | pprice |
++-----+---------+--------+
+|   1 | dog     |  20000 |
+|   2 | bulldog |  20000 |
+|   3 | tommy   |  12000 |
+|   4 | moti    |  25000 |
+|   5 | bruno   |  50000 |
++-----+---------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from prod inner join carts on prod.pid = carts.pid;
++-----+---------+--------+-----+------+------+
+| pid | pname   | pprice | cid | pid  | uid  |
++-----+---------+--------+-----+------+------+
+|   2 | bulldog |  20000 |   1 |    2 |    3 |
++-----+---------+--------+-----+------+------+
+1 row in set (0.00 sec)
+
+mysql>

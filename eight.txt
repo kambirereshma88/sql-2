@@ -1,0 +1,181 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use employe;
+Database changed
+mysql> create table college(
+    -> id int primary key,
+    -> depart varchar(50) not null,
+    -> stud_name varchar(30) not null,
+    -> stud_marks float not null,
+    -> stud_paid_fees float not null,
+    -> attendance float not null
+    -> );
+Query OK, 0 rows affected (0.61 sec)
+
+mysql> desc college;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int         | NO   | PRI | NULL    |       |
+| depart         | varchar(50) | NO   |     | NULL    |       |
+| stud_name      | varchar(30) | NO   |     | NULL    |       |
+| stud_marks     | float       | NO   |     | NULL    |       |
+| stud_paid_fees | float       | NO   |     | NULL    |       |
+| attendance     | float       | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into college values(1,'elec','ram',70,25000,60);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into college values(2,'elec','sham',60,20000,50);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into college values(3,'elec','kishan',65,25000,55);
+Query OK, 1 row affected (0.38 sec)
+
+mysql> insert into college values(4,'elec','gopi',60,28000,55);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into college values(5,'mech','ira',88,30000,90);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into college values(6,'mech','ishan',99,25000,99);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into college values(7,'mech','ayush',95,25000,95);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into college values(8,'it','netra',99,30000,85);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into college values(9,'it','pooja',60,20000,60);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into college values(10,'it','priti',50,20000,50);
+Query OK, 1 row affected (0.27 sec)
+
+mysql> select * from college;
++----+--------+-----------+------------+----------------+------------+
+| id | depart | stud_name | stud_marks | stud_paid_fees | attendance |
++----+--------+-----------+------------+----------------+------------+
+|  1 | elec   | ram       |         70 |          25000 |         60 |
+|  2 | elec   | sham      |         60 |          20000 |         50 |
+|  3 | elec   | kishan    |         65 |          25000 |         55 |
+|  4 | elec   | gopi      |         60 |          28000 |         55 |
+|  5 | mech   | ira       |         88 |          30000 |         90 |
+|  6 | mech   | ishan     |         99 |          25000 |         99 |
+|  7 | mech   | ayush     |         95 |          25000 |         95 |
+|  8 | it     | netra     |         99 |          30000 |         85 |
+|  9 | it     | pooja     |         60 |          20000 |         60 |
+| 10 | it     | priti     |         50 |          20000 |         50 |
++----+--------+-----------+------------+----------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from college where stud_marks=(select max(stud-marks) from college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from college where stud_marks=(select max(stud-marks) from college);
+ERROR 1054 (42S22): Unknown column 'stud' in 'field list'
+mysql> select * from college where stud_marks=(select max(stud_marks) from college);
++----+--------+-----------+------------+----------------+------------+
+| id | depart | stud_name | stud_marks | stud_paid_fees | attendance |
++----+--------+-----------+------------+----------------+------------+
+|  6 | mech   | ishan     |         99 |          25000 |         99 |
+|  8 | it     | netra     |         99 |          30000 |         85 |
++----+--------+-----------+------------+----------------+------------+
+2 rows in set (0.11 sec)
+
+mysql> select * from college where stud_marks=(select min(stud_marks) from college);
++----+--------+-----------+------------+----------------+------------+
+| id | depart | stud_name | stud_marks | stud_paid_fees | attendance |
++----+--------+-----------+------------+----------------+------------+
+| 10 | it     | priti     |         50 |          20000 |         50 |
++----+--------+-----------+------------+----------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from college where stud_paid_fees=(select max(stud_paid_fees)from college);
++----+--------+-----------+------------+----------------+------------+
+| id | depart | stud_name | stud_marks | stud_paid_fees | attendance |
++----+--------+-----------+------------+----------------+------------+
+|  5 | mech   | ira       |         88 |          30000 |         90 |
+|  8 | it     | netra     |         99 |          30000 |         85 |
++----+--------+-----------+------------+----------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(stud_paid_fees)from college:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 1
+mysql> select sum(stud_paid_fees)from college;
++---------------------+
+| sum(stud_paid_fees) |
++---------------------+
+|              248000 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(stud_paid_fees)from college;
++---------------------+
+| avg(stud_paid_fees) |
++---------------------+
+|               24800 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(id)from college;
++-----------+
+| count(id) |
++-----------+
+|        10 |
++-----------+
+1 row in set (0.05 sec)
+
+mysql> select count(depart)from college group by depart ;
++---------------+
+| count(depart) |
++---------------+
+|             4 |
+|             3 |
+|             3 |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> select depart, count(depart)from college group by depart ;
++--------+---------------+
+| depart | count(depart) |
++--------+---------------+
+| elec   |             4 |
+| mech   |             3 |
+| it     |             3 |
++--------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select depart, count(depart)from college group by depart by having min(stud_marks)<70;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by having min(stud_marks)<70' at line 1
+mysql> select depart, count(depart)from college group by depart by depart having min(stud_marks)<70;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by depart having min(stud_marks)<70' at line 1
+mysql> select depart,count(depart)from college group by depart by having min(stud_marks)<70;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by having min(stud_marks)<70' at line 1
+mysql> select depart,count(depart)from college group by depart by having min(stud_marks)<80;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by having min(stud_marks)<80' at line 1
+mysql> select depart,count(depart)from college group group by depart having max(stud_marks)>60;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by depart having max(stud_marks)>60' at line 1
+mysql> select depart,count(depart)from college group by depart having max(stud_marks)>60;
++--------+---------------+
+| depart | count(depart) |
++--------+---------------+
+| elec   |             4 |
+| mech   |             3 |
+| it     |             3 |
++--------+---------------+
+3 rows in set (0.07 sec)

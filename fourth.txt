@@ -1,0 +1,95 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (1.20 sec)
+
+mysql> use car;
+Database changed
+
+mysql> create table employee(
+    -> eid int primary key,
+    -> ename varchar(20),
+    -> edob date not null,
+    -> eage int not null,
+    -> econtact int not null unique,
+    -> email varchar(50) not null,
+    -> ecity varchar(20) not null
+    -> );
+Query OK, 0 rows affected (5.04 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | NO   | PRI | NULL    |       |
+| ename    | varchar(20) | YES  |     | NULL    |       |
+| edob     | date        | NO   |     | NULL    |       |
+| eage     | int         | NO   |     | NULL    |       |
+| econtact | int         | NO   | UNI | NULL    |       |
+| email    | varchar(50) | NO   |     | NULL    |       |
+| ecity    | varchar(20) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (1.06 sec)
+
+mysql> alter table employee add column address varchar(250);
+Query OK, 0 rows affected (7.45 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| eid      | int          | NO   | PRI | NULL    |       |
+| ename    | varchar(20)  | YES  |     | NULL    |       |
+| edob     | date         | NO   |     | NULL    |       |
+| eage     | int          | NO   |     | NULL    |       |
+| econtact | int          | NO   | UNI | NULL    |       |
+| email    | varchar(50)  | NO   |     | NULL    |       |
+| ecity    | varchar(20)  | NO   |     | NULL    |       |
+| address  | varchar(250) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employee values(1,"reshma",'1988/08/07',33,'98671330','reshma@gmail.com','mumbai','kanjurmarg east');
+Query OK, 1 row affected, 1 warning (0.20 sec)
+
+
+mysql> show tables;
++---------------+
+| Tables_in_car |
++---------------+
+| employee      |
++---------------+
+1 row in set (0.39 sec)
+
+
+mysql> select * from employee;
++-----+--------+------------+------+----------+------------------+--------+-----------------+
+| eid | ename  | edob       | eage | econtact | email            | ecity  | address         |
++-----+--------+------------+------+----------+------------------+--------+-----------------+
+|   1 | reshma | 1988-08-07 |   33 | 98671330 | reshma@gmail.com | mumbai | kanjurmarg east |
++-----+--------+------------+------+----------+------------------+--------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values(2,"rahul",'1987/11/21',35,'4525622','rahul@gmail.com','thane','kanjurmarg west');
+Query OK, 1 row affected, 1 warning (0.26 sec)
+
+
+mysql> select * from employee;
++-----+--------+------------+------+----------+------------------+--------+-----------------+
+| eid | ename  | edob       | eage | econtact | email            | ecity  | address         |
++-----+--------+------------+------+----------+------------------+--------+-----------------+
+|   1 | reshma | 1988-08-07 |   33 | 98671330 | reshma@gmail.com | mumbai | kanjurmarg east |
+|   2 | rahul  | 1987-11-21 |   35 |  4525622 | rahul@gmail.com  | thane  | kanjurmarg west |
++-----+--------+------------+------+----------+------------------+--------+-----------------+
+2 rows in set (0.00 sec)

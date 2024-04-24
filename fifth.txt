@@ -1,0 +1,344 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use car;
+Database changed
+mysql> desc car;
+ERROR 1146 (42S02): Table 'car.car' doesn't exist
+mysql> create table car(car_id int primary key, car_name varchar(20) not null, car
+    -> -p_no float not not null unique, car average float not null, car_price float not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-p_no float not not null unique, car average float not null, car_price float not' at line 2
+mysql> create table car(car_id int primary key, car_name varchar(20) not null, car_p_no float not null unique, car average float not null, car_price float not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'average float not null, car_price float not null)' at line 1
+mysql> create table car(car_id int primary key auto_increment,
+    -> car_name varchar(50) not null,
+    -> car_passing_no int unique ,
+    -> car_avrage float not null,
+    -> car_price float not null);
+Query OK, 0 rows affected (6.87 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> desc car
+    -> ;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| car_id         | int         | NO   | PRI | NULL    | auto_increment |
+| car_name       | varchar(50) | NO   |     | NULL    |                |
+| car_passing_no | int         | YES  | UNI | NULL    |                |
+| car_avrage     | float       | NO   |     | NULL    |                |
+| car_price      | float       | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| car                |
+| employe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use employee;
+ERROR 1049 (42000): Unknown database 'employee'
+mysql> use product;
+ERROR 1049 (42000): Unknown database 'product'
+mysql> create table employee(
+    -> e_id int primary key,
+    -> e_name varchar(20) not null,
+    -> e_age int not null,
+    -> e_salary float not null,
+    -> e_bonus float not null,
+    -> e_insentive float not null
+    -> );
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql> create table employe(
+    -> e_id int primary key,
+    -> e_name varchar(20) not null,
+    -> e_age int not null,
+    -> e_salary float not null,
+    -> e_insentive float not null,
+    -> e_extra float not null
+    -> );
+Query OK, 0 rows affected (0.56 sec)
+
+mysql> desc employe;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| e_id        | int         | NO   | PRI | NULL    |       |
+| e_name      | varchar(20) | NO   |     | NULL    |       |
+| e_age       | int         | NO   |     | NULL    |       |
+| e_salary    | float       | NO   |     | NULL    |       |
+| e_insentive | float       | NO   |     | NULL    |       |
+| e_extra     | float       | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table employe add bonus float not null;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employe;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| e_id        | int         | NO   | PRI | NULL    |       |
+| e_name      | varchar(20) | NO   |     | NULL    |       |
+| e_age       | int         | NO   |     | NULL    |       |
+| e_salary    | float       | NO   |     | NULL    |       |
+| e_insentive | float       | NO   |     | NULL    |       |
+| e_extra     | float       | NO   |     | NULL    |       |
+| bonus       | float       | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert table employe values(1,'abc',25,20000,1000,500,500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table employe values(1,'abc',25,20000,1000,500,500)' at line 1
+mysql> inser into employe values(1,'abc',25,20000,1000,500,500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into employe values(1,'abc',25,20000,1000,500,500)' at line 1
+mysql> insert into employe values(1,'abc',25,20000,1000,500,500);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employe;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into employe values(2,'abc',25,20000,1000,500,500);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employe;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employe values(3,'abc',25,20000,1000,500,500);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from employe;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employe values(4,'abc',25,20000,1000,500,500);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> select * from employe;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employe values(5,'abc',25,20000,1000,500,500);
+Query OK, 1 row affected (0.40 sec)
+
+mysql> select * from employe;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    5 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into employe values(6,'abc',25,20000,1000,500,500);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employe;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    5 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    6 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select employee.e_name.employe.e_age from employe
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.e_age from employe' at line 1
+mysql> select employee.e_name.employe.e_age from employe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.e_age from employe' at line 1
+mysql> select employe.e_name.employe.e_age from employe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.e_age from employe' at line 1
+mysql> select employe.e_name.employe.e_age from employe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.e_age from employe' at line 1
+mysql> select employe.e_name,employe.e_age from employe;
++--------+-------+
+| e_name | e_age |
++--------+-------+
+| abc    |    25 |
+| abc    |    25 |
+| abc    |    25 |
+| abc    |    25 |
+| abc    |    25 |
+| abc    |    25 |
++--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select employe.e_name,employe.e_age,employe.bonus from employe;
++--------+-------+-------+
+| e_name | e_age | bonus |
++--------+-------+-------+
+| abc    |    25 |   500 |
+| abc    |    25 |   500 |
+| abc    |    25 |   500 |
+| abc    |    25 |   500 |
+| abc    |    25 |   500 |
+| abc    |    25 |   500 |
++--------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select employe.e_name,employe.e_age,employe.bonus,employe.e_extra from employe;
++--------+-------+-------+---------+
+| e_name | e_age | bonus | e_extra |
++--------+-------+-------+---------+
+| abc    |    25 |   500 |     500 |
+| abc    |    25 |   500 |     500 |
+| abc    |    25 |   500 |     500 |
+| abc    |    25 |   500 |     500 |
+| abc    |    25 |   500 |     500 |
+| abc    |    25 |   500 |     500 |
++--------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select bonus+e_extra from employe;
++---------------+
+| bonus+e_extra |
++---------------+
+|          1000 |
+|          1000 |
+|          1000 |
+|          1000 |
+|          1000 |
+|          1000 |
++---------------+
+6 rows in set (0.08 sec)
+
+mysql> select * from employe limit 2;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employe limit3333333333333333333333333333333333333333333333333333333333333 ;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    5 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    6 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employe limit 3;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe where id 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '4' at line 1
+mysql> select * from employe where e_id 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '4' at line 1
+mysql> select * from employe where e_id = 4;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+1 row in set (0.31 sec)
+
+mysql> select * from employe where e_id in(1,5,6);
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    5 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    6 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+3 rows in set (0.04 sec)
+
+mysql> select * from employe where e_id in(2,3,4);
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employe order by bonus desc;
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    2 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    3 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    4 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    5 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    6 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employe where e_id not in(2,3,4);
++------+--------+-------+----------+-------------+---------+-------+
+| e_id | e_name | e_age | e_salary | e_insentive | e_extra | bonus |
++------+--------+-------+----------+-------------+---------+-------+
+|    1 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    5 | abc    |    25 |    20000 |        1000 |     500 |   500 |
+|    6 | abc    |    25 |    20000 |        1000 |     500 |   500 |
++------+--------+-------+----------+-------------+---------+-------+
+3 rows in set (0.00 sec)
